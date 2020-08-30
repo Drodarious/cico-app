@@ -1,0 +1,81 @@
+<div id="userLog">
+
+    <nav>
+        <ng-material-icon size="2" icon="keyboard_arrow_left" (click)="prevDay()"></ng-material-icon>
+        <input 
+            [owlDateTime]="dt"
+            [owlDateTimeTrigger]="dt"
+            [(ngModel)]="currentDay"
+            (dateTimeInput)="search()">
+        <owl-date-time #dt [pickerType]="'calendar'"></owl-date-time>
+        <span class="date-title">{{ dateTitle }}</span>
+        <ng-material-icon size="2" icon="keyboard_arrow_right" (click)="nextDay()"></ng-material-icon>
+    </nav>
+
+    <div *ngIf="noData; else showData" class="noData">
+        <h3>Data not found</h3>
+    </div>
+
+    <ng-template #showData>
+        <h3>Breakfast</h3>
+        <ul>
+            <li *ngFor="let item of meals.breakfast">
+                <ng-template let-display="item.food.log_display">
+                    <span class="left">{{display.name | titlecase}}</span>
+                    <span class="center">{{display.amount}}<small>{{display.unit}}</small></span>
+                    <span class="right">{{display.calories}}<small>kcal</small></span>
+                </ng-template>
+            </li>
+        </ul>
+
+        <h3>Lunch</h3>
+        <ul>
+            <li *ngFor="let item of meals.lunch">
+                <ng-template let-display="item.food.log_display">
+                    <span class="left">{{display.name | titlecase}}</span>
+                    <span class="center">{{display.amount}}<small>{{display.unit}}</small></span>
+                    <span class="right">{{display.calories}}<small>kcal</small></span>
+                </ng-template>
+            </li>
+        </ul>
+
+        <h3>Dinner</h3>
+        <ul>
+            <li *ngFor="let item of meals.dinner">
+                <span class="left">{{item.food.log_display.name | titlecase}}</span>
+                <span class="center"><small>{{item.food.log_display.amount}} {{item.food.log_display.unit}}</small></span>
+                <span class="right">{{item.food.log_display.calories}}<small>kcal</small></span>
+            </li>
+        </ul>
+
+        <h3>Exercise</h3>
+        <ul>
+            <li *ngFor="let item of exercise">
+                {{item.food.food_name | titlecase}}
+            </li>
+        </ul>
+
+        <section class="summary">
+
+            <table class="totals">
+                <tr>
+                    <td>Base</td>
+                    <td>{{totalCalFromBase}}</td>
+                </tr>
+                <tr>
+                    <td>Food</td>
+                    <td>{{totalCalFromFood}}</td>
+                </tr>
+                <tr>
+                    <td>Exercise</td>
+                    <td>{{totalCalFromExercise}}</td>
+                </tr>
+                <tr>
+                    <td>CICO</td>
+                    <td>{{totalCalFromFood - totalCalFromBase - totalCalFromExercise}}</td>
+                </tr>
+            </table>
+        </section>
+    </ng-template>
+
+</div>

@@ -1,0 +1,9 @@
+<div 
+[class.show]="showMessage"
+[class.success]="message && message.type == 'success'"
+[class.error]="message && message.type == 'error'"
+(click)="hide()">
+    <ng-material-icon *ngIf="message && message.type == 'success'" size="2" icon="check_circle"></ng-material-icon>
+    <ng-material-icon *ngIf="message && message.type == 'error'" size="2" icon="error"></ng-material-icon>
+    {{message ? message.text : ''}}
+</div>

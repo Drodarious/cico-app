@@ -1,0 +1,307 @@
+h3{
+    text-align: center;
+    margin-top: 40px;
+}
+
+button.main{
+    width: 100%;
+    display: block;
+    margin: 0;
+    background: #388e3c;
+    color: #ffffff;
+    font-size: 20px;
+    border: none;
+    outline: none;
+    font-family: 'Roboto', sans-serif;
+    cursor: pointer;
+    transition: all .3s ease-out;
+
+    ng-material-icon{
+        color: #6abf69;
+        margin: 10px;
+        vertical-align: middle;
+        display: inline-block;
+        transition: all .3s ease-out;
+    }
+
+    &:hover{
+        opacity: .9;
+        ng-material-icon{
+            transform: scale(1.1);
+        }
+    }
+}
+
+.close {
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    cursor: pointer;
+    transition: all .3s ease-out;
+
+    &:hover{
+        opacity: .9;
+        ng-material-icon{
+            transform: scale(1.1);
+        }
+    }
+}
+
+.overlay, .blur {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(100,100,100,.5);
+    z-index: 9;
+}
+
+.results{
+    width: 100%;
+    &.third{
+        width: 33%;
+        display: inline-block;
+    }
+}
+
+.panel {
+    position: absolute;
+    left: 10%;
+    top: 10%;
+    width: 80%;
+    height: 80%;
+    background: #efefef;
+    transition: all .3s ease-out;
+
+    &.small{
+        left: 50%;
+        top: 50%;
+        width: 250px;
+        height: 200px;
+        margin: -100px -125px;
+    }
+
+    input#searchInput {
+        position: relative;
+        display: block;
+        border: none;
+        outline: none;
+        font-size: 20px;
+        padding: 10px;
+        width: calc(100% - 20px);
+        border-bottom: solid 4px #388e3c;
+    }
+
+    ul {
+        position: absolute;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        height: calc(100% - 47px);
+        overflow: hidden;
+        overflow-y: scroll;
+        display: block;
+        width: 100%;
+        background: #388e3c;
+
+        &.third{
+            width: 33%;
+        }
+
+        li{
+            height: 40px;
+            padding: 10px 0 5px 0;
+            margin-bottom: 2px;
+            background: rgba(255,255,255,.1);
+            font-size: 16px;
+            cursor: pointer;
+            white-space: nowrap;
+            color: #ffffff;
+
+            &.selected {
+                background: #6abf69;
+                opacity: .8;
+            }
+
+            &:hover{
+                opacity: .8;
+            }
+
+            .thumbnail {
+                background: #ffffff;
+                text-align: center;
+                width: 32px;
+                height: 32px;
+                position: relative;
+                display: inline-block;
+                vertical-align: middle;
+                margin: 0 10px;
+                overflow: hidden;
+            }
+
+            img {
+                height: 100%;
+            }
+
+            strong, em {
+                position: inline-block;
+                position: relative;
+                font-size: 24px;
+                top: 5px;
+                margin-right: 5px;
+            }
+
+            em {
+                font-size: 16px;
+                opacitY: .7;
+            }
+        }
+    }
+}
+
+section {
+
+    span {
+        position: relative;
+        width: calc(50% - 1px);
+        text-align: center;
+        height: 100%;
+        display: inline-block;
+        padding: 50px 0 56px 0;
+        background: #388e3c;
+        color: #ffffff;
+        font-size: 20px;
+        cursor: pointer;
+        transition: all .3s ease-out;
+
+        &:nth-of-type(1) {
+            margin-right: 2px;
+        }
+
+        ng-material-icon{
+            display: block;
+            width: 100%;
+            margin-bottom: 5px;
+            transition: all .3s ease-out;
+        }
+
+        &:hover{
+            opacity: .9;
+            ng-material-icon{
+                transform: scale(1.1);
+            }
+        }
+    }
+
+}
+
+
+.food {
+    position: relative;
+    width: calc(67% - 52px);
+    float: right;
+    height: calc(100% - 48px);
+    overflow: hidden;
+    border-left: solid 4px #388e3c;
+    text-align: center;
+    padding: 24px;
+
+    h1{
+        font-size: 60px;
+        color: #388e3c;
+        margin: 10px 0;
+        padding: 0;
+    }
+
+    .image {
+        position: relative;
+        margin: 0 auto;
+        height: 148px;
+        width: 148px;
+        background: #ffffff;
+        border-radius: 100px;
+        overflow: hidden;
+        border: solid 8px #388e3c;
+
+        img{
+            height: 110%;
+            margin-top: -5%;
+        }
+    }
+
+    table {
+        width: 100%;
+        margin-top: 24px;
+
+        th{
+            background: #388e3c;
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 20px;
+            padding: 4px 0;
+            width: 25%;
+        }
+
+        td{
+            font-size: 32px;
+            background: #dddddd;
+            padding: 8px 0;
+            color: #505050;
+            width: 25%;
+
+            em {
+                margin-left: -5px;
+                font-size: 16px;
+            }
+        }
+    }
+}
+
+.quantity-select{
+    margin-top: 24px;
+    background: #dddddd;
+    padding: 24px;
+    border-radius: 5px;
+
+    input, select, button{
+        font-size: 32px;
+        padding: 10px 20px;
+        width: 100px;
+        border: none;
+        outline: none;
+        border-bottom: solid 4px #388e3c;
+        text-align: center;
+    }
+
+    select{
+        width: auto;
+        margin: 0 12px;
+        max-width: 560px;
+    }
+
+    button{
+        width: auto;
+        border: none;
+        background: #388e3c;
+        color: #ffffff;
+        border-radius: 5px;
+        font-size: 28px;
+        padding: 13px 20px;
+        cursor: pointer;
+        transition: all .3s ease-out;
+
+        &:hover{
+            opacity: .9;
+            ng-material-icon{
+                transform: scale(1.1) translateY(5px);
+            }
+        }
+
+        ng-material-icon{
+            display: inline-block;
+            transform: scale(1.0) translateY(4px);
+            transition: all .3s ease-out;
+        }
+    }
+}

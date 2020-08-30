@@ -1,0 +1,84 @@
+nav{
+
+    padding: 10px 0;
+    background: #eeeeee;
+
+    *::selection {
+        color: inherit;
+        background: transparent;
+        text-shadow: none;
+    }
+
+    ng-material-icon {
+        cursor: pointer;
+        outline: none;
+    }
+
+    input {
+        width: calc(100% - 64px);
+        position: absolute;
+        padding: 5px 0;
+        opacity: 0;
+        cursor: pointer;
+        z-index: 0;
+    }
+
+    span.date-title {
+        position: relative;
+        text-align: center;
+        width: calc(100% - 64px);
+        display: inline-block;
+        top: -10px;
+        font-weight: bold;
+        pointer-events: none;
+    }
+
+}
+
+ul {
+    padding: 0;
+    list-style: none;
+
+    li{
+        padding: 8px 20px;
+        border-top: dotted 1px rgba(0,0,0,.1);
+
+        &:last-child {
+            border-bottom: dotted 1px rgba(0,0,0,.1);
+        }
+
+        &:nth-child(odd) {
+            background: #fcfcfc;
+        }
+
+        span {
+            display: inline-block;
+            width: 33.33333%;
+            padding: 0;
+            margin: 0;
+            font-weight: bold;
+
+            &.left { text-align: left; }
+            &.center { text-align: center; }
+            &.right { text-align: right; }
+
+            small {
+                margin-left: 5px;
+                opacity: .5;
+                font-weight: normal;
+            }
+        }
+    }
+}
+
+h3 {
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+    text-transform: uppercase;
+    color: #388e3c;
+}
+
+.noData{
+    margin-top: 20%;
+}

@@ -1,0 +1,10 @@
+POST http://localhost:3000/food
+
+###
+
+POST http://localhost:3000/food/add
+Content-Type: application/json
+
+{
+    "food": "some food"
+}

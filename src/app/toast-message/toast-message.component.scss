@@ -1,0 +1,39 @@
+div{
+    position: fixed;
+    margin: 0 auto;
+    bottom: -500px;
+    opacity: 0;
+    background: rgba(255,255,255,.9);
+    z-index: 999999;
+    text-align: center;
+    padding: 10px 20px;
+    transition: all .3s ease-out;
+    font-size: 2em;
+    left: 50%;
+    transform: translate(-50%, 0);
+
+    ng-material-icon{
+        line-height: 0;
+        vertical-align: middle;
+        margin: -10px 0px -6px -10px;
+    }
+
+    &.success{
+        border-left: 4px solid #388e3c;
+        ng-material-icon{
+            color: #388e3c;
+        }
+    }
+
+    &.error{
+        border-left: 4px solid #d50000;
+        ng-material-icon{
+            color: #d50000;
+        }
+    }
+
+    &.show{
+        opacity: 1;
+        bottom: 100px;
+    }
+}
