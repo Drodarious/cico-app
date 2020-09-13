@@ -1,4 +1,6 @@
-<app-login *ngIf="!isSignedIn; else main"></app-login>
+<div *ngIf="!isSignedIn; else main">
+    <app-login></app-login>
+</div>
 
 <ng-template #main>
 
