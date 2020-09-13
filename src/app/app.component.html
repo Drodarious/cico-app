@@ -1,4 +1,13 @@
-<app-add-item (itemAdded)="onItemAdded.next(true)"></app-add-item>
-<app-user-log [refresh]="onItemAdded"></app-user-log>
+<div class="top">
+</div>
+
+<div class="left">
+    <app-add-item (itemAdded)="onItemAdded.next(true)"></app-add-item>
+    <app-user-log [refresh]="onItemAdded"></app-user-log>
+</div>
+
+<div class="main">
+    <app-trend-chart></app-trend-chart>
+</div>
 
 <app-toast-message></app-toast-message>

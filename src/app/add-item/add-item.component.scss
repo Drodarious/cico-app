@@ -197,7 +197,7 @@ section {
 }
 
 
-.food {
+.food, .exercise {
     position: relative;
     width: calc(67% - 52px);
     float: right;
@@ -274,10 +274,16 @@ section {
         text-align: center;
     }
 
+    label {
+        border-bottom: solid 4px #388e3c;
+        padding: 24px 15px 14px 0;
+        background: #ffffff;
+    }
+
     select{
         width: auto;
         margin: 0 12px;
-        max-width: 560px;
+        max-width: 555px;
     }
 
     button{
@@ -290,6 +296,7 @@ section {
         padding: 13px 20px;
         cursor: pointer;
         transition: all .3s ease-out;
+        margin-left: 20px;
 
         &:hover{
             opacity: .9;

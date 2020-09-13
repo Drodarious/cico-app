@@ -7,4 +7,17 @@ body, html {
     outline: 0;
     border: none;
     font-family: 'Roboto', sans-serif;
+    background: #e2e2e2;
+}
+
+*::-webkit-scrollbar {
+    width: 4px;
+}
+
+*::-webkit-scrollbar-track {
+    background-color: rgba(231, 231, 231, 0);
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: rgb(138, 138, 138);
 }

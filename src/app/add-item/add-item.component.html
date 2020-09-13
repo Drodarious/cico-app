@@ -2,12 +2,9 @@
     <ng-material-icon size="2" icon="add_circle"></ng-material-icon>
     <span>Add Item</span>
 </button>
-
 <div class="overlay" *ngIf="showModal">
     <div class="panel" [class.small]="!searchType">
-
         <ng-material-icon class="close" size="3" icon="close" (click)="toggleModal(false)"></ng-material-icon>
-
         <section *ngIf="!searchType; else searchPane">
             <span (click)="setSearchType(searchTypes.FOOD)">
                 <ng-material-icon size="3" icon="fastfood"></ng-material-icon>
@@ -18,127 +15,159 @@
                 Exercise
             </span>
         </section>
-
         <ng-template #searchPane>
-            <div class="results" [class.third]="userFoodInput.food">
-                <input debounce delay="500" id="searchInput" [(ngModel)]="searchQuery" type="text" placeholder="Search Food..." (func)="search(searchQuery)"/>
-                <ul *ngIf="rows.length > 0; else noResults" [class.third]="userFoodInput.food">
-                    <li *ngFor="let row of rows" (click)="getFood(row)" [class.selected]="userFoodInput.food && userFoodInput.food.food_name === row.food_name">
-                        <div class="thumbnail">
-                            <img [src]="row.photo.thumb || row.photo.highres" [alt]="row.food_name" [title]="row.food_name"/>
-                        </div>
-                        <strong>{{row.food_name | titlecase}}</strong>
-                        <em>{{'- '+row.serving_unit}}</em>
-                    </li>
-                </ul>
-            </div>
-            <ng-template #noResults>
-                <h3>No Results Found</h3>
-            </ng-template>
-
-            <div class="food" *ngIf="userFoodInput.food">
-                <h1>{{userFoodInput.food.food_name | titlecase}}</h1>
-                <div class="image">
-                    <img [src]="userFoodInput.food.photo.highres || userFoodInput.food.photo.thumb" [alt]="userFoodInput.food.food_name" [title]="userFoodInput.food.food_name"/>
+            <section *ngIf="searchType === searchTypes.FOOD">
+                <div class="results" [class.third]="userFoodInput.food">
+                    <input debounce delay="500" id="searchInput" [(ngModel)]="searchQuery" type="text" placeholder="Search Food..." (func)="search(searchQuery)"/>
+                    <ul *ngIf="rows.length > 0; else noResults" [class.third]="userFoodInput.food">
+                        <li *ngFor="let row of rows" (click)="getFood(row)" [class.selected]="userFoodInput.food && userFoodInput.food.food_name === row.food_name">
+                            <div class="thumbnail">
+                                <img [src]="row.photo.thumb || row.photo.highres" [alt]="row.food_name" [title]="row.food_name"/>
+                            </div>
+                            <strong>{{row.food_name | titlecase}}</strong>
+                            <em>{{'- '+row.serving_unit}}</em>
+                        </li>
+                    </ul>
                 </div>
+                <ng-template #noResults>
+                    <h3>No Results Found</h3>
+                </ng-template>
+                <div class="food" *ngIf="userFoodInput.food">
+                    <h1>{{userFoodInput.food.food_name | titlecase}}</h1>
+                    <div class="image">
+                        <img [src]="userFoodInput.food.photo.highres || userFoodInput.food.photo.thumb" [alt]="userFoodInput.food.food_name" [title]="userFoodInput.food.food_name"/>
+                    </div>
 
-                <table>
-                    <tr>
-                        <th>Calories</th>
-                        <th>Carbs</th>
-                        <th>Fat</th>
-                        <th>Protein</th>
-                    </tr>
-                    <tr>
-                        <td>
-                            {{getCalculatedNutrientValue('calories')}}
-                            <em>kcal</em>
-                        </td>
-                        <td>
-                            {{getCalculatedNutrientValue('carbs')}}
-                            <em>g</em>
-                        </td>
-                        <td>
-                            {{getCalculatedNutrientValue('fat')}}
-                            <em>g</em>
-                        </td>
-                        <td>
-                            {{getCalculatedNutrientValue('protein')}}
-                            <em>g</em>
-                        </td>
-                    </tr>
-                </table>
+                    <table>
+                        <tr>
+                            <th>Calories</th>
+                            <th>Carbs</th>
+                            <th>Fat</th>
+                            <th>Protein</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                {{getCalculatedNutrientValue('calories')}}
+                                <em>kcal</em>
+                            </td>
+                            <td>
+                                {{getCalculatedNutrientValue('carbs')}}
+                                <em>g</em>
+                            </td>
+                            <td>
+                                {{getCalculatedNutrientValue('fat')}}
+                                <em>g</em>
+                            </td>
+                            <td>
+                                {{getCalculatedNutrientValue('protein')}}
+                                <em>g</em>
+                            </td>
+                        </tr>
+                    </table>
 
-                <table>
-                    <tr>
-                        <th>Sugar</th>
-                        <th>Sodium</th>
-                        <th>Fiber</th>
-                        <th>Caffeine</th>
-                    </tr>
-                    <tr>
-                        <td>
-                            {{getCalculatedNutrientValue('sugar')}}
-                            <em>g</em>
-                        </td>
-                        <td>
-                            {{getCalculatedNutrientValue('sodium')}}
-                            <em>mg</em>
-                        </td>
-                        <td>
-                            {{getCalculatedNutrientValue('fiber')}}
-                            <em>mg</em>
-                        </td>
-                        <td>
-                            {{getCalculatedNutrientValue('caffeine')}}
-                            <em>mg</em>
-                        </td>
-                    </tr>
-                </table>
-
-
-                <section class="quantity-select">
-
-                    <input min="0" type="number" [value]="userFoodInput.food.serving_qty" [(ngModel)]="userFoodInput.amount" (input)="calculateNutrients()"/>
-                    <select *ngIf="userFoodInput.food.alt_measures; else defaultOptionOnly" [(ngModel)]="userFoodInput.unit" (change)="calculateNutrients()">
-                        <option 
-                            *ngIf="!userFoodInput.food.alt_measures.includes(userFoodInput.food.serving_unit)"
-                            [value]="userFoodInput.food.serving_unit"
-                            [selected]="userFoodInput.food.serving_unit">
-                            {{userFoodInput.food.serving_unit}}
-                        </option>
-                        <option 
-                            *ngFor="let measure of userFoodInput.food.alt_measures"
-                            [value]="measure.measure"
-                            [selected]="measure.measure == userFoodInput.food.serving_unit">
-                            {{measure.measure}}
-                        </option>
-                    </select>
-
-                    <ng-template #defaultOptionOnly>
-                        <select>
+                    <table>
+                        <tr>
+                            <th>Sugar</th>
+                            <th>Sodium</th>
+                            <th>Fiber</th>
+                            <th>Caffeine</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                {{getCalculatedNutrientValue('sugar')}}
+                                <em>g</em>
+                            </td>
+                            <td>
+                                {{getCalculatedNutrientValue('sodium')}}
+                                <em>mg</em>
+                            </td>
+                            <td>
+                                {{getCalculatedNutrientValue('fiber')}}
+                                <em>mg</em>
+                            </td>
+                            <td>
+                                {{getCalculatedNutrientValue('caffeine')}}
+                                <em>mg</em>
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="quantity-select">
+                        <input min="0" type="number" [value]="userFoodInput.food.serving_qty" [(ngModel)]="userFoodInput.amount" (input)="calculateNutrients()"/>
+                        <select *ngIf="userFoodInput.food.alt_measures; else defaultOptionOnly" [(ngModel)]="userFoodInput.unit" (change)="calculateNutrients()">
                             <option 
+                                *ngIf="!userFoodInput.food.alt_measures.includes(userFoodInput.food.serving_unit)"
                                 [value]="userFoodInput.food.serving_unit"
-                                selected="selected">
+                                [selected]="userFoodInput.food.serving_unit">
                                 {{userFoodInput.food.serving_unit}}
                             </option>
+                            <option 
+                                *ngFor="let measure of userFoodInput.food.alt_measures"
+                                [value]="measure.measure"
+                                [selected]="measure.measure == userFoodInput.food.serving_unit">
+                                {{measure.measure}}
+                            </option>
                         </select>
-                    </ng-template>
-                    <button (click)="saveFoodItem()" *ngIf="!updating; else updatingBtn" >
-                        <ng-material-icon size="1" icon="add_circle"></ng-material-icon>
-                        Add Item
-                    </button>
-                    <ng-template #updatingBtn>
-                        <button>
-                            Updating...
+                        <ng-template #defaultOptionOnly>
+                            <select>
+                                <option 
+                                    [value]="userFoodInput.food.serving_unit"
+                                    selected="selected">
+                                    {{userFoodInput.food.serving_unit}}
+                                </option>
+                            </select>
+                        </ng-template>
+                        <button (click)="saveFoodItem()" *ngIf="!updating; else updatingBtn" >
+                            <ng-material-icon size="1" icon="add_circle"></ng-material-icon>
+                            Add Item
                         </button>
-                    </ng-template>
-
-
-                </section>
-            </div>
-
+                    </div>
+                </div>
+            </section>
+            <section *ngIf="searchType === searchTypes.EXERCISE">
+                <div class="results" [class.third]="userExerciseInput.name">
+                    <input debounce delay="500" id="searchInput" [(ngModel)]="searchQuery" type="text" placeholder="Search Exercise..." (func)="search(searchQuery)"/>
+                    <ul *ngIf="rows.length > 0; else noResults" [class.third]="userExerciseInput.name">
+                        <li *ngFor="let row of rows" (click)="setExercise(row)" [class.selected]="userExerciseInput && userExerciseInput.name === row.name">
+                            <div class="thumbnail">
+                                <img *ngIf="row.photo.thumb" [src]="row.photo.thumb || row.photo.highres" [alt]="row.name" [title]="row.name"/>
+                            </div>
+                            <strong>{{row.name | titlecase}}</strong>
+                        </li>
+                    </ul>
+                </div>
+                <ng-template #noResults>
+                    <h3>No Results Found</h3>
+                </ng-template>
+                <div class="exercise" *ngIf="userExerciseInput.name">
+                    <h1>{{userExerciseInput.name | titlecase}}</h1>
+                    <table>
+                        <tr>
+                            <th>Energy Expended</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                {{userExerciseInput.calPerMin * userExerciseInput.duration | number:'1.0-0'}}
+                                <em>kcal</em>
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="quantity-select">
+                        <input min="0" type="number" name="minutes" [(ngModel)]="userExerciseInput.duration"/>
+                        <label for="minutes">Min</label>
+                        <button (click)="saveExerciseItem()" *ngIf="!updating; else updatingBtn" >
+                            <ng-material-icon size="1" icon="add_circle"></ng-material-icon>
+                            Add Item
+                        </button>
+                    </div>
+                </div>
+            </section>
         </ng-template>
-
     </div>
 </div>
+
+<ng-template #updatingBtn>
+    <button>
+        <ng-material-icon size="1" icon="add_circle"></ng-material-icon>
+        Updating...
+    </button>
+</ng-template>

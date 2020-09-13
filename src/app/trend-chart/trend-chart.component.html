@@ -1,0 +1,5 @@
+<span *ngIf="isLoading">
+    <ng-material-icon size="4" icon="loop"></ng-material-icon>
+    Loading Chart Data...
+</span>
+<div *ngIf="!isLoading" echarts [options]="options"></div>

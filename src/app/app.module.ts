@@ -12,13 +12,16 @@ import { ToastMessageComponent } from './toast-message/toast-message.component';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { UserLogComponent } from './user-log/user-log.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { TrendChartComponent } from './trend-chart/trend-chart.component';
+import { NgxEchartsModule } from 'ngx-echarts';
 
 @NgModule({
   declarations: [
     AppComponent,
     AddItemComponent,
     ToastMessageComponent,
-    UserLogComponent
+    UserLogComponent,
+    TrendChartComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +32,10 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     FormsModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgxEchartsModule.forRoot({
+      echarts: () => import('echarts')
+    })
   ],
   providers: [NgModel],
   bootstrap: [AppComponent]

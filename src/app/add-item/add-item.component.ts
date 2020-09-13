@@ -22,6 +22,14 @@ export class UserFoodInput {
   unit: string;
 }
 
+export class UserExerciseInput {
+  name: string;
+  met: any;
+  calPerMin: number;
+  duration: number;
+  photo: any;
+}
+
 @Component({
   selector: 'app-add-item',
   templateUrl: './add-item.component.html',
@@ -39,6 +47,7 @@ export class AddItemComponent implements OnInit {
   rows: any[] = [];
   preview: any = null;
   userFoodInput: UserFoodInput = new UserFoodInput();
+  userExerciseInput: UserExerciseInput = new UserExerciseInput();
   updating = false;
 
   calculatedNutrients: CalculatedNutrient[] = [
@@ -98,7 +107,15 @@ export class AddItemComponent implements OnInit {
     }
 
     if (this.searchType === searchTypes.EXERCISE) {
-      this.searchExercise(query);
+      this.nutritionix.exercise(query).subscribe(
+        (results) => {
+          this.rows = results.exercises;
+          console.log(this.rows);
+        },
+        (error) => {
+          console.error('Instant search Failed. Error:' + JSON.stringify(error));
+        }
+      );
     }
   }
 
@@ -114,10 +131,9 @@ export class AddItemComponent implements OnInit {
             unit: results.foods[0].serving_unit
           };
           this.calculateNutrients();
-          console.log(this.userFoodInput.food);
         },
         (error) => {
-          console.error('Common search Failed. Error:' + JSON.stringify(error));
+          this.toast.error('Common search Failed. Error:' + JSON.stringify(error));
         }
       );
 
@@ -131,14 +147,23 @@ export class AddItemComponent implements OnInit {
             unit: results.foods[0].serving_unit
           };
           this.calculateNutrients();
-          console.log(this.userFoodInput.food);
         },
         (error) => {
-          console.error('Branded search Failed. Error:' + JSON.stringify(error));
+          this.toast.error('Branded search Failed. Error:' + JSON.stringify(error));
         }
       );
 
     }
+  }
+
+  setExercise(row) {
+    this.userExerciseInput = {
+      name: row.name,
+      met: row.met,
+      calPerMin: row.nf_calories / row.duration_min,
+      photo: row.photo,
+      duration: 0
+    };
   }
 
   addNutrients(food) {
@@ -179,6 +204,23 @@ export class AddItemComponent implements OnInit {
     );
   }
 
+  saveExerciseItem() {
+    this.updating = true;
+
+    this.db.saveExercise(this.userExerciseInput).pipe(take(1)).subscribe(
+      (success) => {
+        this.toast.success('Exercise saved successfully!');
+        this.updating = false;
+        this.toggleModal(false);
+        this.itemAdded.next(true);
+      },
+      (error) => {
+        this.toast.error('Failed to save exercise!');
+        this.updating = false;
+      }
+    );
+  }
+
   calculateNutrients(unit = null, amount = null) {
 
     if (unit) { this.userFoodInput.unit = unit; }
@@ -199,10 +241,6 @@ export class AddItemComponent implements OnInit {
         nut.value = Math.round(this.userFoodInput.amount * (defaultNutValue / this.userFoodInput.food.serving_qty));
       }
     });
-  }
-
-  searchExercise(query: string) {
-    // ...
   }
 
 }

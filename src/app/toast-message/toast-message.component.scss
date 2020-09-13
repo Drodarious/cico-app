@@ -11,6 +11,8 @@ div{
     font-size: 2em;
     left: 50%;
     transform: translate(-50%, 0);
+    border: 1px solid #a7a7a7;
+    border-left: 4px solid #a7a7a7;
 
     ng-material-icon{
         line-height: 0;
@@ -19,14 +21,14 @@ div{
     }
 
     &.success{
-        border-left: 4px solid #388e3c;
+        border-color: #388e3c;
         ng-material-icon{
             color: #388e3c;
         }
     }
 
     &.error{
-        border-left: 4px solid #d50000;
+        border-color: #d50000;
         ng-material-icon{
             color: #d50000;
         }

@@ -12,7 +12,7 @@ import { debounceTime, take } from 'rxjs/operators';
 })
 export class NutritionixService {
 
-  private baseUrl: string = 'https://trackapi.nutritionix.com/v2/';
+  private baseUrl = 'https://trackapi.nutritionix.com/v2/';
   private apiHeaders: HttpHeaders = new HttpHeaders({
     'x-app-id': '97a5666b',
     'x-app-key': '0837e50acb247c93d000dd3787f315fe'
@@ -28,9 +28,9 @@ export class NutritionixService {
 
     const url: string = this.baseUrl + 'search/instant';
     const body: any = {
-      query: query
+      query
     };
-    
+
     return this.callApi(url, body);
 
   }
@@ -48,6 +48,19 @@ export class NutritionixService {
   brandedItemById(id: string): Observable<any> {
     const url: string = this.baseUrl + `search/item?nix_item_id=${id}`;
     return this.callApi(url);
+  }
+
+  // Estimate calories burned for various exercises using natural language i.e. "ran 3 miles".
+  exercise(query: string): Observable<any> {
+    const url: string = this.baseUrl + 'natural/exercise';
+    const body: any = {
+      query,
+      gender: 'male',
+      weight_kg: 72.5,
+      height_cm: 167.64,
+      age: 32
+    };
+    return this.callApi(url, body);
   }
 
   private callApi(url, body = null): Observable<any> {

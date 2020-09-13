@@ -1,41 +1,43 @@
 const express = require('express');
 const router = express.Router();
-const FoodModel = require('../models/food');
+const ExerciseModel = require('../models/exercise');
 
 
-// Search Food
+// Search Exercise
 router.post('/', async (request, response) => {
     try {
-        const food = await FoodModel.find(request.body.query);
-        response.json(food);
+        const exercise = await ExerciseModel.find(request.body.query);
+        response.json(exercise);
     } catch (error) {
         response.status(500).json({ message: error.message });
     }
 });
 
 
-// Add Food
+// Add Exercise
 router.post('/add', async (request, response) => {
 
-    const food = new FoodModel({
-        id: request.body.id,
-        food: request.body.food,
-        date: request.body.date,
+    const exercise = new ExerciseModel({
+        name: request.body.name,
+        calPerMin: request.body.calPerMin,
+        met: request.body.met,
+        duration: request.body.duration,
+        photo: request.body.photo
     });
 
     try {
-        const newFood = await food.save();
-        response.status(201).json(newFood);
+        const newExercise = await exercise.save();
+        response.status(201).json(newExercise);
     } catch (error) {
         response.status(400).json({ message: error.message });
     }
 });
 
 
-// Remove Food
+// Remove Exercise
 router.post('/remove', async (request, response) => {
     try {
-        const success = await FoodModel.findByIdAndDelete(request.body.id);
+        const success = await ExerciseModel.findByIdAndDelete(request.body.id);
         response.status(200).json(success);
     } catch (error) {
         response.status(500).json({ message: error.message });

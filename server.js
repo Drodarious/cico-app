@@ -17,3 +17,9 @@ app.use(express.json());
 
 const foodRouter = require('./routes/food');
 app.use('/food', foodRouter);
+
+const exerciseRouter = require('./routes/exercise');
+app.use('/exercise', exerciseRouter);
+
+const statsRouter = require('./routes/stats');
+app.use('/stats', statsRouter);

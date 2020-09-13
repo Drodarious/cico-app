@@ -42,6 +42,8 @@ ul {
     li{
         padding: 8px 20px;
         border-top: dotted 1px rgba(0,0,0,.1);
+        cursor: pointer;
+        transition: all .3s ease-out;
 
         &:last-child {
             border-bottom: dotted 1px rgba(0,0,0,.1);
@@ -49,6 +51,10 @@ ul {
 
         &:nth-child(odd) {
             background: #fcfcfc;
+        }
+
+        &:hover{
+            background: #f0fff1;
         }
 
         span {
@@ -81,4 +87,68 @@ h3 {
 
 .noData{
     margin-top: 20%;
+}
+
+.details{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(100,100,100,.5);
+    z-index: 9;
+
+    .modal{
+        position: absolute;
+        left: 40%;
+        top: 40%;
+        width: 20%;
+        background: #efefef;
+        transition: all .3s ease-out;
+        text-align: center;
+        padding: 20px;
+        font-family: 'Roboto', sans-serif;
+        font-size: 18px;
+
+        p {
+            margin: 0 0 20px 0;
+            padding: 0;
+        }
+
+        button{
+            padding: 10px 0;
+            width: 35%;
+            margin: 0 7.5%;
+            font-weight: bold;
+            font-size: 18px;
+            outline: none;
+            cursor: pointer;
+            border: none;
+            transition: all .3s ease-out;
+
+            &.remove {
+                background: #8e3838;
+                color: #ffffff;
+            }
+
+            &.cancel {
+                color: #444444;
+                background: #dddddd;
+            }
+
+            &:hover{
+                opacity: .5;
+            }
+        }
+    }
+}
+
+.data {
+    position: relative;
+    height: calc(100vh - 150px);
+    overflow: hidden;
+
+    &:hover {
+        overflow-y: auto;
+    }
 }

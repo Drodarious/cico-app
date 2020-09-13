@@ -12,70 +12,60 @@
         <ng-material-icon size="2" icon="keyboard_arrow_right" (click)="nextDay()"></ng-material-icon>
     </nav>
 
-    <div *ngIf="noData; else showData" class="noData">
+    <div *ngIf="!hasExercise && !hasFood; else showData" class="noData">
         <h3>Data not found</h3>
     </div>
 
     <ng-template #showData>
-        <h3>Breakfast</h3>
-        <ul>
-            <li *ngFor="let item of meals.breakfast">
-                <ng-template let-display="item.food.log_display">
-                    <span class="left">{{display.name | titlecase}}</span>
-                    <span class="center">{{display.amount}}<small>{{display.unit}}</small></span>
-                    <span class="right">{{display.calories}}<small>kcal</small></span>
-                </ng-template>
-            </li>
-        </ul>
+        <div class="data">
+            <h3 *ngIf="meals.breakfast.length > 0">Breakfast</h3>
+            <ul>
+                <li *ngFor="let item of meals.breakfast" (click)="showDetails(item)">
+                    <span class="left">{{item.food.log_display.name | titlecase}}</span>
+                    <span class="center"><small>{{item.food.log_display.amount}} {{item.food.log_display.unit}}</small></span>
+                    <span class="right">{{item.food.log_display.calories}}<small>kcal</small></span>
+                </li>
+            </ul>
 
-        <h3>Lunch</h3>
-        <ul>
-            <li *ngFor="let item of meals.lunch">
-                <ng-template let-display="item.food.log_display">
-                    <span class="left">{{display.name | titlecase}}</span>
-                    <span class="center">{{display.amount}}<small>{{display.unit}}</small></span>
-                    <span class="right">{{display.calories}}<small>kcal</small></span>
-                </ng-template>
-            </li>
-        </ul>
+            <h3 *ngIf="meals.lunch.length > 0">Lunch</h3>
+            <ul>
+                <li *ngFor="let item of meals.lunch" (click)="showDetails(item)">
+                    <span class="left">{{item.food.log_display.name | titlecase}}</span>
+                    <span class="center"><small>{{item.food.log_display.amount}} {{item.food.log_display.unit}}</small></span>
+                    <span class="right">{{item.food.log_display.calories}}<small>kcal</small></span>
+                </li>
+            </ul>
 
-        <h3>Dinner</h3>
-        <ul>
-            <li *ngFor="let item of meals.dinner">
-                <span class="left">{{item.food.log_display.name | titlecase}}</span>
-                <span class="center"><small>{{item.food.log_display.amount}} {{item.food.log_display.unit}}</small></span>
-                <span class="right">{{item.food.log_display.calories}}<small>kcal</small></span>
-            </li>
-        </ul>
+            <h3 *ngIf="meals.dinner.length > 0">Dinner</h3>
+            <ul>
+                <li *ngFor="let item of meals.dinner" (click)="showDetails(item)">
+                    <span class="left">{{item.food.log_display.name | titlecase}}</span>
+                    <span class="center"><small>{{item.food.log_display.amount}} {{item.food.log_display.unit}}</small></span>
+                    <span class="right">{{item.food.log_display.calories}}<small>kcal</small></span>
+                </li>
+            </ul>
 
-        <h3>Exercise</h3>
-        <ul>
-            <li *ngFor="let item of exercise">
-                {{item.food.food_name | titlecase}}
-            </li>
-        </ul>
-
-        <section class="summary">
-
-            <table class="totals">
-                <tr>
-                    <td>Base</td>
-                    <td>{{totalCalFromBase}}</td>
-                </tr>
-                <tr>
-                    <td>Food</td>
-                    <td>{{totalCalFromFood}}</td>
-                </tr>
-                <tr>
-                    <td>Exercise</td>
-                    <td>{{totalCalFromExercise}}</td>
-                </tr>
-                <tr>
-                    <td>CICO</td>
-                    <td>{{totalCalFromFood - totalCalFromBase - totalCalFromExercise}}</td>
-                </tr>
-            </table>
-        </section>
+            <h3 *ngIf="exercise.length > 0">Exercise</h3>
+            <ul>
+                <li *ngFor="let item of exercise" (click)="showDetails(item)">
+                    <span class="left">{{item.name | titlecase}}</span>
+                    <span class="center"><small>{{item.duration}} min</small></span>
+                    <span class="right">-{{item.calPerMin * item.duration | number:'1.0-0'}}<small>kcal</small></span>
+                </li>
+            </ul>
+        </div>
     </ng-template>
+
+</div>
+
+
+<div *ngIf="detailItem" class="details">
+
+    <section class="modal">
+        <p *ngIf="detailItem.food">Would you like to remove "{{detailItem.food.log_display.name | titlecase}}"?</p>
+        <p *ngIf="!detailItem.food">Would you like to remove "{{detailItem.name | titlecase}}"?</p>
+        <button class="cancel" (click)="clearDetailItem()">Cancel</button>
+        <button class="remove" (click)="removeItem(detailItem)">Remove</button>
+    </section>
 
 </div>
