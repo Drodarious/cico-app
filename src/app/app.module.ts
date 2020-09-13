@@ -1,3 +1,4 @@
+import { AuthModule } from './auth.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
@@ -14,6 +15,9 @@ import { UserLogComponent } from './user-log/user-log.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { TrendChartComponent } from './trend-chart/trend-chart.component';
 import { NgxEchartsModule } from 'ngx-echarts';
+import { MetricsComponent } from './metrics/metrics.component';
+import { LoginComponent } from './login/login.component';
+
 
 @NgModule({
   declarations: [
@@ -21,9 +25,12 @@ import { NgxEchartsModule } from 'ngx-echarts';
     AddItemComponent,
     ToastMessageComponent,
     UserLogComponent,
-    TrendChartComponent
+    TrendChartComponent,
+    MetricsComponent,
+    LoginComponent
   ],
   imports: [
+    AuthModule,
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,

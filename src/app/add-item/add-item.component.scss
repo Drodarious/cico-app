@@ -38,6 +38,7 @@ button.main{
     right: -50px;
     cursor: pointer;
     transition: all .3s ease-out;
+    color: #ffffff;
 
     &:hover{
         opacity: .9;
@@ -47,14 +48,14 @@ button.main{
     }
 }
 
-.overlay, .blur {
+.overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(100,100,100,.5);
-    z-index: 9;
+    background: rgba(100,100,100,.7);
+    z-index: 9999;
 }
 
 .results{
@@ -80,6 +81,7 @@ button.main{
         width: 250px;
         height: 200px;
         margin: -100px -125px;
+        border: solid 2px #ffffff;
     }
 
     input#searchInput {

@@ -1,0 +1,134 @@
+button.main {
+    position: absolute;
+    right: 0;
+    top: 0;
+    border: 0;
+    outline: 0;
+    padding: 10px 30px;
+    height: 100%;
+    text-align: center;
+    font-size: 20px;
+    color: #ffffff;
+    background: #388E3C;
+    font-family: 'Roboto', sans-serif;
+    cursor: pointer;
+    transition: all .3s ease-out;
+
+    &.close{
+        background: #444444;
+        ng-material-icon{
+            color: #888888;
+        }
+    }
+
+    &.save{
+        position: relative;
+        width: 100%;
+        height: auto;
+        margin-top: 60px;
+        ng-material-icon{
+            width: auto;
+            color: #6ABF69;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 10px;
+        }
+    }
+
+    ng-material-icon {
+        display: block;
+        width: 100%;
+        color: #6ABF69;
+        transition: all .3s ease-out;
+    }
+
+    &:hover{
+        opacity: .9;
+        ng-material-icon{
+            transform: scale(1.1);
+        }
+    }
+}
+
+.overlay {
+    position: fixed;
+    top: 123px;
+    right: -2000px;
+    width: calc(100vw - 360px);
+    height: calc(100vh - 123px);
+    background: #E2E2E2;
+    z-index: -1;
+    transition: all .3s ease-out;
+    
+
+    &.show{
+        right: 0;
+    }
+}
+
+.panel {
+    position: absolute;
+    left: 40%;
+    top: 10%;
+    width: 20%;
+    height: 80%;
+    transition: all .3s ease-out;
+}
+
+.close {
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    cursor: pointer;
+    transition: all .3s ease-out;
+
+    &:hover{
+        opacity: .9;
+        ng-material-icon{
+            transform: scale(1.1);
+        }
+    }
+}
+
+h3{
+    font-size: 20px;
+    color:#388E3C;
+    font-family: 'Roboto', sans-serif;
+    margin: 30px 0 0 0;
+
+    &:nth-of-type(1) {
+        margin: 0;
+    }
+}
+
+input, select{
+    font-family: 'Roboto', sans-serif;
+    width: calc(100% - 20px);
+    padding: 6px 10px;
+    font-size: 20px;
+    border: none;
+    outline: none;
+    box-shadow:inset 2px 2px 5px 0 rgba(0,0,0,.1);
+    border: 1px solid #dddddd;
+    color: #444444;
+
+    &:after{
+        content: 'lbs';
+        position: relative;
+        right: 0;
+        bottom: 0;
+        display: block;
+    }
+
+    &.pounds:after{
+        content: 'lbs'
+    }
+
+    &.inches:after{
+        content: 'lbs'
+    }
+}
+
+select{
+    width: 100%;
+}

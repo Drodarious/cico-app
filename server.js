@@ -23,3 +23,6 @@ app.use('/exercise', exerciseRouter);
 
 const statsRouter = require('./routes/stats');
 app.use('/stats', statsRouter);
+
+const metricsRouter = require('./routes/metrics');
+app.use('/metrics', metricsRouter);

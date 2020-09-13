@@ -48,9 +48,6 @@ router.post('/add', async (request, response) => {
 
     };
 
-    console.log('request.body.query',request.body.query);
-    console.log('update',update);
-
     try {
         const newStats = await StatsModel.findOneAndUpdate(request.body.query, update, options, callback);
         response.status(201).json(newStats);

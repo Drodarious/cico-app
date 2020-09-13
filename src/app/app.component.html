@@ -1,13 +1,20 @@
-<div class="top">
-</div>
+<app-login *ngIf="!isSignedIn; else main"></app-login>
 
-<div class="left">
-    <app-add-item (itemAdded)="onItemAdded.next(true)"></app-add-item>
-    <app-user-log [refresh]="onItemAdded"></app-user-log>
-</div>
+<ng-template #main>
 
-<div class="main">
-    <app-trend-chart></app-trend-chart>
-</div>
+    <div class="top">
+        <app-metrics></app-metrics>
+    </div>
 
-<app-toast-message></app-toast-message>
+    <div class="left">
+        <app-add-item (itemAdded)="onItemAdded.next(true)"></app-add-item>
+        <app-user-log [refresh]="onItemAdded"></app-user-log>
+    </div>
+
+    <div class="main">
+        <app-trend-chart></app-trend-chart>
+    </div>
+
+    <app-toast-message></app-toast-message>
+
+</ng-template>

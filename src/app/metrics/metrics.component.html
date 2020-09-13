@@ -1,0 +1,48 @@
+<button class="main" *ngIf="!showModal" (click)="toggleModal(true)">
+    <ng-material-icon size="3.5" icon="accessibility_new"></ng-material-icon>
+    <span>Metrics</span>
+</button>
+<button class="main close" *ngIf="showModal" (click)="toggleModal(false)">
+    <ng-material-icon size="3.5" icon="close"></ng-material-icon>
+    <span>Close</span>
+</button>
+<div class="overlay"  [class.show]="showModal">
+    <div class="panel" >
+
+            <h3>Weight</h3>
+            <input class="pounds" type="text" [(ngModel)]="metrics.weight"/>
+
+            <h3>Goal Weight</h3>
+            <input class="pounds" type="text" [(ngModel)]="metrics.goal"/>
+
+            <h3>Height</h3>
+            <input class="pounds" type="text" [(ngModel)]="metrics.height"/>
+
+            <h3>Birth Date</h3>
+            <input 
+                [owlDateTime]="dt"
+                [owlDateTimeTrigger]="dt"
+                [(ngModel)]="metrics.dob" />
+            <owl-date-time #dt [pickerType]="'calendar'"></owl-date-time>
+
+            <h3>Activity Level</h3>
+            <select [(ngModel)]="metrics.activity">
+                <option [selected]="metrics.activity === 1.2" value="1.2">Sedentary </option>
+                <option [selected]="metrics.activity === 1.375" value="1.375">Lightly Active</option>
+                <option [selected]="metrics.activity === 1.55" value="1.55">Moderately Active</option>
+                <option [selected]="metrics.activity === 1.725" value="1.725">Very Active</option>
+                <option [selected]="metrics.activity === 1.9" value="1.9">Extra Active</option>
+            </select>
+
+            <button *ngIf="!saving" class="main save" (click)="save()">
+                <ng-material-icon size="2" icon="save"></ng-material-icon>
+                <span>Save</span>
+            </button>
+
+            <button *ngIf="saving" class="main save" (click)="save()">
+                <ng-material-icon size="2" icon="cloud_upload"></ng-material-icon>
+                <span>Saving...</span>
+            </button>
+
+    </div>
+</div>

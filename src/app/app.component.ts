@@ -9,5 +9,13 @@ import { BehaviorSubject } from 'rxjs';
 export class AppComponent {
 
   onItemAdded: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
+  isSignedIn = false;
+
+  private user;
+
+  constructor() {
+    this.user = localStorage.getItem('googleUser');
+    this.isSignedIn = !!this.user;
+  }
 
 }
